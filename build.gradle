@@ -1,0 +1,78 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'org.springframework.boot' version '3.4.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'kr.it.ecms'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.session:spring-session-core'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	// jstl
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2'
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+	
+	//Httpservlet request, response 쓰고 싶을 떄 javax //요즘은 이거 안쓰고 자카르타 쓰기는함 
+	compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+	
+	//Dashboard에서 JSP, JSTL 사용하고 싶을 때 (대시보드돌리고 탐캣 버전확인 후 버전 맞춰서 사용해야함!)
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.40'
+	
+	//fileupload
+	implementation 'commons-fileupload:commons-fileupload:1.5'
+	
+	//ftp 외부에 업로드시 필요
+	implementation 'commons-net:commons-net:3.11.1'
+	
+	//okhttp 웹소켓 소켓통신시 필요
+	implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+	
+	//xalan : xml 도큐멘트 핸들링 (xml로 문서변환)
+	implementation 'xalan:serializer:2.7.3'
+
+	//thymeleaf	
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	
+	//Database
+	/*
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
+	*/
+	
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
